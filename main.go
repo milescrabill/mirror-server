@@ -25,12 +25,18 @@ func WeatherHandler(w http.ResponseWriter, req *http.Request) {
 		log.Fatal(err.Error())
 	}
 	w.Write(body)
+	log.Printf("[info] weather: got request to %q", req.RequestURI)
 }
 
 func main() {
 	conf = config.GetConfig()
+	if conf.Port == 0 {
+		conf.Port = 8000
+	}
 
 	r := mux.NewRouter()
 	r.HandleFunc("/weather", WeatherHandler)
+
+	log.Printf("listening on port %d", conf.Port)
 	http.ListenAndServe(":8000", handlers.CORS()(r))
 }

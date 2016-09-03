@@ -9,6 +9,7 @@ import (
 // Config is config for perm
 type Config struct {
 	Debug         bool
+	Port          int
 	ForecastToken string `required:"true"`
 }
 
