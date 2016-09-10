@@ -11,6 +11,8 @@ type Config struct {
 	Debug         bool
 	Port          int
 	ForecastToken string `required:"true"`
+	PlaidClientID string `required:"true"`
+	PlaidSecret   string `required:"true"`
 }
 
 // GetConfig gets Config from env

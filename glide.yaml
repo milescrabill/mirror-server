@@ -4,3 +4,9 @@ import:
   version: ^1.1.0
 - package: github.com/kelseyhightower/envconfig
   version: ^1.1.0
+- package: github.com/plaid/plaid-go
+- package: github.com/urfave/negroni
+  version: ^0.2.0
+- package: github.com/gorilla/securecookie
+  version: ^1.1.0
+- package: github.com/rs/cors

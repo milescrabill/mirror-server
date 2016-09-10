@@ -1,12 +1,22 @@
-hash: 891f77ddc598a24d991d2b201d59bf8d2f90752c532666b6b93648e373a66811
-updated: 2016-08-30T17:17:12.423240844-07:00
+hash: 4914202ba5a275e67c8d6250417ebd1f7277d9d9a41b77d45fce1cdd8263ecd0
+updated: 2016-09-09T22:11:37.86798596-07:00
 imports:
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
-- name: github.com/gorilla/handlers
-  version: a5775781a543af3c6b9f5baf10995e4d14168950
 - name: github.com/gorilla/mux
   version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
+- name: github.com/gorilla/securecookie
+  version: 667fe4e3466a040b780561fe9b51a83a3753eefc
 - name: github.com/kelseyhightower/envconfig
   version: ac12b1f15efba734211a556d8b125110dc538016
+- name: github.com/plaid/plaid-go
+  version: 5d1cd831486b475ca19c38d04180bae9d5cc981f
+  subpackages:
+  - plaid
+- name: github.com/urfave/negroni
+  version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
+- name: golang.org/x/net
+  version: 6250b412798208e6c90b03b7c4f226de5aa299e2
+  subpackages:
+  - context
 testImports: []
