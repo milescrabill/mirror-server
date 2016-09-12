@@ -31,9 +31,10 @@ func makeSecureCookie(unencrypted map[string]string) *http.Cookie {
 	}
 
 	return &http.Cookie{
-		Name:    "plaidToken",
-		Value:   encoded,
-		Expires: time.Now().Add(time.Hour * 24),
+		Name:  "plaidToken",
+		Value: encoded,
+		// lasts a year, arbitrary
+		Expires: time.Now().Add(time.Hour * 24 * 365),
 	}
 }
 
@@ -58,7 +59,10 @@ func getPlaidData(token string) ([]byte, error) {
 
 	// Use the returned Plaid API access_token to retrieve
 	// account information.
-	connectRes, mfaRes, err := pc.ConnectGet(postRes.AccessToken, &plaid.ConnectGetOptions{})
+	oneWeekAgo := time.Now().AddDate(0, 0, -7).Format("01-02-2006")
+	connectRes, mfaRes, err := pc.ConnectGet(postRes.AccessToken, &plaid.ConnectGetOptions{
+		GTE: oneWeekAgo,
+	})
 	if err != nil {
 		log.Printf("[error] plaid ConnectGet: %s", err.Error())
 		return []byte{}, err
@@ -69,16 +73,23 @@ func getPlaidData(token string) ([]byte, error) {
 
 	categories := make(map[string]int)
 	for _, transaction := range connectRes.Transactions {
-		for _, category := range transaction.Category {
-			categories[category]++
+		// for _, category := range transaction.Category {
+		// 	categories[category]++
+		// }
+
+		// one category per transaction
+		if len(transaction.Category) > 0 {
+			categories[transaction.Category[0]]++
 		}
 	}
 
 	js, err := json.Marshal(struct {
-		Categories map[string]int
-		Authorized bool
+		Categories   map[string]int
+		Transactions []plaid.Transaction
+		Authorized   bool
 	}{
 		categories,
+		connectRes.Transactions,
 		true,
 	})
 	if err != nil {
@@ -136,7 +147,6 @@ func BudgetHandler(w http.ResponseWriter, req *http.Request) {
 	cookie := readSecureCookie(req, "plaidToken")
 	if cookie != nil {
 		if _, ok := cookie["plaidToken"]; ok {
-			log.Printf("got plaidToken")
 			js, err := getPlaidData(cookie["plaidToken"])
 			if err != nil {
 				log.Printf("[error] could not get plaid data")
