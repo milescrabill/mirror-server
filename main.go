@@ -177,14 +177,15 @@ func WeatherHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	var hashKey = []byte("2e04ace36f70a790bdae4145")
-	var blockKey = []byte("94800fcfc846f7a402889bf3")
-	s = securecookie.New(hashKey, blockKey)
 
 	conf = config.GetConfig()
 	if conf.Port == 0 {
 		conf.Port = 8000
 	}
+	s = securecookie.New(
+		[]byte(conf.SecureCookieHashKey),
+		[]byte(conf.SecureCookieBlockKey)
+	)
 
 	pc = plaid.NewClient(conf.PlaidClientID, conf.PlaidSecret, plaid.Tartan)
 
