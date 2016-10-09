@@ -184,7 +184,7 @@ func main() {
 	}
 	s = securecookie.New(
 		[]byte(conf.SecureCookieHashKey),
-		[]byte(conf.SecureCookieBlockKey)
+		[]byte(conf.SecureCookieBlockKey),
 	)
 
 	pc = plaid.NewClient(conf.PlaidClientID, conf.PlaidSecret, plaid.Tartan)
