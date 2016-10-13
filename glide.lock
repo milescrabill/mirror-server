@@ -1,8 +1,10 @@
 hash: 4914202ba5a275e67c8d6250417ebd1f7277d9d9a41b77d45fce1cdd8263ecd0
-updated: 2016-09-09T22:11:37.86798596-07:00
+updated: 2016-10-12T20:20:21.408376603-07:00
 imports:
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/handlers
+  version: a5775781a543af3c6b9f5baf10995e4d14168950
 - name: github.com/gorilla/mux
   version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
 - name: github.com/gorilla/securecookie
@@ -13,10 +15,8 @@ imports:
   version: 5d1cd831486b475ca19c38d04180bae9d5cc981f
   subpackages:
   - plaid
+- name: github.com/rs/cors
+  version: a62a804a8a009876ca59105f7899938a1349f4b3
 - name: github.com/urfave/negroni
   version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
-- name: golang.org/x/net
-  version: 6250b412798208e6c90b03b7c4f226de5aa299e2
-  subpackages:
-  - context
 testImports: []
