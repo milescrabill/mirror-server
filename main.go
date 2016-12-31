@@ -165,7 +165,7 @@ func BudgetHandler(w http.ResponseWriter, req *http.Request) {
 func WeatherHandler(w http.ResponseWriter, req *http.Request) {
 	log.Printf("[info] weather: got request to %q", req.RequestURI)
 
-	resp, err := http.Get("https://api.forecast.io/forecast/" + conf.ForecastToken + "/37.8267,-122.423")
+	resp, err := http.Get("https://api.forecast.io/forecast/" + conf.ForecastToken + "/45.4641,-122.6462")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
