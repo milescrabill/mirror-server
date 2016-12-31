@@ -176,6 +176,20 @@ func WeatherHandler(w http.ResponseWriter, req *http.Request) {
 	w.Write(body)
 }
 
+func NewsHandler(w http.ResponseWriter, req *http.Request) {
+	log.Printf("[info] news: got request to %q", req.RequestURI)
+
+	resp, err := http.Get("https://newsapi.org/v1/articles?source=associated-press&sortBy=top&apiKey=" + conf.NewsToken)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	w.Write(body)
+}
+
 func main() {
 
 	conf = config.GetConfig()
@@ -191,6 +205,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/weather", WeatherHandler)
+	r.HandleFunc("/news", NewsHandler)
 	r.HandleFunc("/budget", BudgetHandler)
 	r.HandleFunc("/plaid_auth", PlaidHandler).Methods("POST")
 

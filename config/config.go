@@ -13,6 +13,7 @@ type Config struct {
 	ForecastToken string `required:"true"`
 	PlaidClientID string `required:"true"`
 	PlaidSecret   string `required:"true"`
+	NewsToken   	string `required:"true"`
 
 	// for securecookie
 	// generate w/ openssl rand -hex 12 or similar
